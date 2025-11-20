@@ -17,10 +17,10 @@ $numero = $_POST['numeroEndereco'] ?? '';
 $complemento = $_POST['complementoEndereco'] ?? '';
 
 
-    $sql_insert = "INSERT INTO endereco (enderecoID
+    $sql_insert = "INSERT INTO endereco (enderecoID,
                 estadoEndereco, cidadeEndereco, bairroEndereco, ruaEndereco, 
-                numeroEndereco, complementoEndereco)
-            ) VALUES (DEFAULT, $estado, $cidade, $bairro, $rua, $numero, $complemento)";
+                numeroEndereco, complementoEndereco, LoginClienteFK)
+             VALUES (DEFAULT, '$estado', '$cidade', '$bairro','$rua', $numero, '$complemento' ,$idUser)";
 
     $stmt = $conn->prepare($sql_insert);
 
