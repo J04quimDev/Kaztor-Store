@@ -25,11 +25,13 @@ if (mysqli_num_rows($resultadoUser) > 0) {
     die("Usuário não encontrado.");
 }
 
-$sqlEnd = "SELECT e.*, lc.*  FROM endereco e INNER JOIN logincliente lc 
-ON lc.enderecoID = e.EnderecoID
-WHERE lc.LoginClienteID = $iduser;";
+$sqlEnd = "SELECT e.* FROM endereco e WHERE e.LoginClienteFK = $iduser";
 $resultadoEnd = mysqli_query($conn, $sqlEnd);
-$endereco = mysqli_fetch_assoc($resultadoEnd);
+if ($resultadoEnd && mysqli_num_rows($resultadoEnd) > 0) {
+    $endereco = mysqli_fetch_assoc($resultadoEnd);
+} else {
+    $endereco = null;
+}
 ?>
 
 <!DOCTYPE html>

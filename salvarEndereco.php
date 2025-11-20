@@ -8,7 +8,6 @@ if (!isset($_SESSION['LoginClienteID'])) {
 
 $idUser = $_SESSION['LoginClienteID'];
 
-$enderecoID = $_POST['enderecoID'] ?? null;
 $estado = $_POST['estadoEndereco'] ?? '';
 $cidade = $_POST['cidadeEndereco'] ?? '';
 $bairro = $_POST['bairroEndereco'] ?? '';
@@ -16,23 +15,32 @@ $rua = $_POST['ruaEndereco'] ?? '';
 $numero = $_POST['numeroEndereco'] ?? '';
 $complemento = $_POST['complementoEndereco'] ?? '';
 
-
-    $sql_insert = "INSERT INTO endereco (enderecoID,
+$sql_insert = "INSERT INTO endereco (
                 estadoEndereco, cidadeEndereco, bairroEndereco, ruaEndereco, 
                 numeroEndereco, complementoEndereco, LoginClienteFK)
-             VALUES (DEFAULT, '$estado', '$cidade', '$bairro','$rua', $numero, '$complemento' ,$idUser)";
+             VALUES 
+                ('$estado', '$cidade', '$bairro', '$rua', $numero, '$complemento', $idUser)";
 
-    $stmt = $conn->prepare($sql_insert);
+if ($conn->query($sql_insert) === TRUE) {
 
-    if ($stmt->execute()) {
-        $novoEnderecoID = $conn->insert_id;
-        echo "<script>
-                alert('Endereço salvo com sucesso!');
-                window.location.href='dadospessoais.php';
-              </script>";
-    } else {
-        echo "Erro ao salvar endereço: " . $stmt->error;
-    }
-    $stmt->close();
-    $conn->close();
+    // pega o id do endereço recém cadastrado
+    $novoEnderecoID = $conn->insert_id;
+
+    // seta como endereço principal do usuário
+    $sql_update_user = "UPDATE logincliente 
+                        SET enderecoID = $novoEnderecoID 
+                        WHERE LoginClienteID = $idUser";
+
+    $conn->query($sql_update_user);
+
+    echo "<script>
+            alert('Endereço salvo e definido como principal!');
+            window.location.href='dadospessoais.php';
+          </script>";
+
+} else {
+    echo "Erro ao salvar endereço: " . $conn->error;
+}
+
+$conn->close();
 ?>
