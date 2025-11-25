@@ -6,8 +6,6 @@ if (!isset($_SESSION['LoginClienteID'])) {
     die("Usuário não logado.");
 }
 
-$idUser = $_SESSION['LoginClienteID'];
-
 $enderecoID = $_POST['enderecoID'] ?? null;
 $estado = $_POST['estadoEndereco'] ?? '';
 $cidade = $_POST['cidadeEndereco'] ?? '';
@@ -19,8 +17,8 @@ $complemento = $_POST['complementoEndereco'] ?? '';
 
     $sql_insert = "INSERT INTO endereco (enderecoID,
                 estadoEndereco, cidadeEndereco, bairroEndereco, ruaEndereco, 
-                numeroEndereco, complementoEndereco, LoginClienteFK)
-             VALUES (DEFAULT, '$estado', '$cidade', '$bairro','$rua', $numero, '$complemento' ,$idUser)";
+                numeroEndereco, complementoEndereco)
+             VALUES (DEFAULT, '$estado', '$cidade', '$bairro','$rua', $numero, '$complemento');";
 
     $stmt = $conn->prepare($sql_insert);
 
