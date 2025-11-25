@@ -1,7 +1,7 @@
 <?php
     session_start();
     $LoginClienteID = $_SESSION['LoginClienteID'];
-    include "conexao.php";
+    include "PHP/conexao.php";
 
     $estado = $_POST['estado'];
     $estadoendereco = substr($estado[0], 0, 1) . substr($estado[1], 0, 1);
@@ -24,7 +24,7 @@
     $sql = "UPDATE logincliente SET enderecoID = (SELECT MAX(enderecoID) FROM endereco) WHERE LoginClienteID = '$LoginClienteID'";
     if (mysqli_query($conn,$sql)) {
         echo "Endereço atualizado com sucesso";
-        header("Location: ../index.php");
+        header("Location: /TCCphpJoca/index.php");
         exit;
     } else {
         echo "Falha ao atualizar endereço: " . mysqli_error($conn);
