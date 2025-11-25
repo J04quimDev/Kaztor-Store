@@ -3,7 +3,7 @@
     $LoginClienteID = $_SESSION['LoginClienteID'];
     include "PHP/conexao.php";
 
-    $estado = $_POST['estado'];
+    $estado = $_POST['estadoEndereco'];
     $estadoendereco = substr($estado[0], 0, 1) . substr($estado[1], 0, 1);
     $cidade = $_POST['cidadeEndereco'];
     $bairro = $_POST['bairroEndereco'];
