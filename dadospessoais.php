@@ -128,9 +128,9 @@ $endereco = mysqli_fetch_assoc($resultadoEnd);
                         <p><strong>Complemento:</strong> <?= htmlspecialchars($endereco['complementoEndereco']) ?></p>
                     </div>
                 <?php else: ?>
-                    <button id="btnNovoEndereco" class="btn btn-dark">Cadastrar Endereço</button>
+                    <button id="btnNovoEndereco" class="btn btn-dark">Cadastrar Endereço</button>🐒
                 <?php endif; ?>
-                <form id="formNovoEndereco" class="mt-4" action="CadastroEndereco.php" method="POST">
+                <form id="formNovoEndereco" class="mt-4" action="CadastroEndereco.php" method="POST"> 
                     <h5>Novo Endereço</h5>
                     <input type="hidden" name="enderecoID" value="<?= $endereco['enderecoID'] ?? '' ?>">
                     <div class="mb-3">
